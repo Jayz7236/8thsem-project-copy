@@ -34,8 +34,8 @@ router.get("/forums", async (req, res) => {
           creator_avatar: {
             $cond: [
               { $gt: [{ $size: "$creator" }, 0] },
-              { $concat: ["${API_URL}
-", { $arrayElemAt: ["$creator.avatar", 0] }] },
+              { $concat: [`${API_URL}
+`, { $arrayElemAt: ["$creator.avatar", 0] }] },
               "/default-avatar.png"
             ]
           }
@@ -113,8 +113,8 @@ router.get("/forums/:id", async (req, res) => {
           creator_avatar: {
             $cond: [
               { $gt: [{ $size: "$creator" }, 0] },
-              { $concat: ["${API_URL}
-", { $arrayElemAt: ["$creator.avatar", 0] }] },
+              { $concat: [`${API_URL}
+`, { $arrayElemAt: ["$creator.avatar", 0] }] },
               "/default-avatar.png"
             ]
           }
@@ -226,8 +226,8 @@ router.get("/forums/:id/comments", async (req, res) => {
                   authorAvatar: {
                       $cond: [
                           { $gt: [{ $size: "$author" }, 0] },
-                          { $concat: ["${API_URL}
-", { $arrayElemAt: ["$author.avatar", 0] }] },
+                          { $concat: [`${API_URL}
+`, { $arrayElemAt: ["$author.avatar", 0] }] },
                           "/default-avatar.png" 
                       ]
                   }
@@ -275,8 +275,8 @@ router.post("/topiccomments", async (req, res) => {
                   authorAvatar: {
                       $cond: [
                           { $gt: [{ $size: "$user" }, 0] },
-                          { $concat: ["${API_URL}
-", { $arrayElemAt: ["$user.avatar", 0] }] },
+                          { $concat: [`${API_URL}
+`, { $arrayElemAt: ["$user.avatar", 0] }] },
                           "/default-avatar.png" 
                       ]
                   }

@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-
+const API_URL = import.meta.env.VITE_API_URL;
 const app = express();
 
 // Import Routes
@@ -22,9 +22,9 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // for development
-  "https://alumni-student-management.vercel.app/", // replace with your actual Vercel domain
-  "${API_URL}
-"
+  "https://8thsem-project-copy-123.vercel.app", // replace with your actual Vercel domain
+  `${API_URL}
+`
 ];
 
 
