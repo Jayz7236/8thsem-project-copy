@@ -23,7 +23,8 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173", // for development
   "https://alumni-student-management.vercel.app/", // replace with your actual Vercel domain
-  "http://localhost:5000"
+  "${API_URL}
+"
 ];
 
 

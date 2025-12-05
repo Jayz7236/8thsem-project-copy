@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AlumniList = () => {
   const [alumniData, setAlumniData] = useState([]);
@@ -10,7 +11,8 @@ const AlumniList = () => {
   useEffect(() => {
     const fetchAlumni = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/alumni/");
+        const response = await fetch(`${API_URL}
+/api/alumni/`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

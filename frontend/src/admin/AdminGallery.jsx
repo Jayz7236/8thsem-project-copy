@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Trash, Edit } from "lucide-react";
 import Sidebar from "./Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminGallery = () => {
   const [gallery, setGallery] = useState([]);
@@ -16,7 +17,8 @@ const AdminGallery = () => {
 
     if (userId && token) {
       axios
-        .get(`http://localhost:5000/api/users/admin/${userId}`, {
+        .get(`${API_URL}
+/api/users/admin/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +36,8 @@ const AdminGallery = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/gallery")
+      .get(`${API_URL}
+/api/gallery`)
       .then((res) => {
         if (Array.isArray(res.data)) {
           setGallery(res.data);
@@ -77,7 +80,8 @@ const AdminGallery = () => {
       // If editId is set, use PUT to update the existing gallery item, else use POST for new gallery item
       const response = await axios({
         method: editId ? "PUT" : "POST", // Change to PUT when editing an existing gallery item
-        url: `http://localhost:5000/api/gallery${editId ? `/${editId}` : ""}`, // Add editId if available
+        url: `${API_URL}
+/api/gallery${editId ? `/${editId}` : ""}`, // Add editId if available
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -112,7 +116,8 @@ const AdminGallery = () => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/gallery/${id}`
+        `${API_URL}
+/api/gallery/${id}`
       );
       setGallery(gallery.filter((item) => item._id !== id));
       alert(response.data.message || "Deleted successfully");
@@ -226,7 +231,8 @@ const AdminGallery = () => {
                     </td>
                     <td className="flex justify-center px-4 py-2 border border-gray-300">
                       <img
-                        src={`http://localhost:5000${galleryItem.imageUrl}`}
+                        src={`${API_URL}
+${galleryItem.imageUrl}`}
                         alt="img"
                         className="h-15 w-15 object-cover rounded"
                       />

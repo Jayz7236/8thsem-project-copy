@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Discussion = () => {
   const { id } = useParams();
@@ -17,14 +18,16 @@ const Discussion = () => {
   const fetchDiscussion = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/forums/${id}`
+        `${API_URL}
+/api/forums/${id}`
       );
       const formattedTopic = {
         ...response.data,
         author: response.data.created_by || "Unknown",
         avatar: response.data.creator_avatar?.startsWith("http")
           ? response.data.creator_avatar
-          : `http://localhost:5000${response.data.creator_avatar}`,
+          : `${API_URL}
+${response.data.creator_avatar}`,
       };
       setTopic(formattedTopic);
     } catch (err) {
@@ -35,7 +38,8 @@ const Discussion = () => {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/forums/${id}/comments`
+        `${API_URL}
+/api/forums/${id}/comments`
       );
 
       const formattedComments = res.data.map((comment) => ({
@@ -82,7 +86,8 @@ const Discussion = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/reply",
+        `${API_URL}
+/api/reply`,
         {
           comment: newComment,
           topic_id: id,
@@ -116,7 +121,8 @@ const Discussion = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/reply",
+        `${API_URL}
+/api/reply`,
         {
           comment: childReply,
           topic_id: id,
@@ -158,7 +164,8 @@ const Discussion = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/view_forum/${commentId}`,
+        `${API_URL}
+/api/view_forum/${commentId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

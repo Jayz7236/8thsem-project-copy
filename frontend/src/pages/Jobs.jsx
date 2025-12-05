@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import JobForm from "../components/JobForm"; // Import JobForm component
 import { PlusIcon } from "lucide-react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +20,8 @@ const Jobs = () => {
   // Fetch jobs using Axios with a callback function
   const fetchJobs = async (callback) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/job");
+      const response = await axios.get(`${API_URL}
+/api/job`);
       setJobs(response.data);
       if (callback) callback(response.data); // Callback after successful fetch
     } catch (err) {

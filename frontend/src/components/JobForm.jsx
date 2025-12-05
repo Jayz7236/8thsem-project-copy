@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const JobForm = ({ onClose }) => {
   const [jobData, setJobData] = useState({
@@ -58,7 +59,8 @@ const JobForm = ({ onClose }) => {
 
     try {
       // Post the job to the server
-      const response = await axios.post("http://localhost:5000/api/job", jobPayload);
+      const response = await axios.post(`${API_URL}
+/api/job`, jobPayload);
 
       // Handle the response
       if (response.status === 201) {

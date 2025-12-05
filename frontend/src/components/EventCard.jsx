@@ -1,4 +1,5 @@
 import React from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const EventCard = ({ event, userId, activeTab, onJoin, onClick }) => {
   const hasJoined = event.attendees?.includes(userId);
@@ -11,7 +12,8 @@ const EventCard = ({ event, userId, activeTab, onJoin, onClick }) => {
       <img
         src={
           event.image
-            ? `http://localhost:5000${event.image}`
+            ? `${API_URL}
+${event.image}`
             : "/images/university.jpg"
         }
         alt={event.name}

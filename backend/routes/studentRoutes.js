@@ -28,7 +28,8 @@ router.get("/:id", async (req, res) => {
 
     // If avatar is stored as a relative path, prepend the base URL
     if (student.avatar) {
-      student.avatar = `http://localhost:5000/${student.avatar}`;
+      student.avatar = `${API_URL}
+/${student.avatar}`;
     }
 
     res.json(student);

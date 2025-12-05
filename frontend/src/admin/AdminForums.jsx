@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminForums = () => {
   const [forums, setForums] = useState([]);
@@ -32,7 +33,8 @@ const AdminForums = () => {
 
   const fetchForums = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/forums");
+      const response = await axios.get(`${API_URL}
+/api/forums`);
       const formatted = response.data.map((forum) => ({
         id: forum._id,
         title: forum.title,
@@ -47,7 +49,8 @@ const AdminForums = () => {
 
   const approveForum = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/forum/status/${id}`, {
+      await axios.put(`${API_URL}
+/api/forum/status/${id}`, {
         status: "Approved",
       });
       fetchForums();
@@ -58,7 +61,8 @@ const AdminForums = () => {
 
   const deleteForum = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/forum/${id}`);
+      await axios.delete(`${API_URL}
+/api/forum/${id}`);
       fetchForums();
     } catch (err) {
       console.error("Error deleting forum:", err);
@@ -93,7 +97,8 @@ const AdminForums = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.post(
-          "http://localhost:5000/api/manageforum",
+          `${API_URL}
+/api/manageforum`,
           {
             title: newTopic.topic,
             description: newTopic.description,

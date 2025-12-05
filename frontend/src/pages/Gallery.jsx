@@ -5,6 +5,7 @@ import { PlusCircle, X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Gallery = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,8 @@ const Gallery = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/gallery")
+    fetch(`${API_URL}
+/api/gallery`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -29,7 +31,8 @@ const Gallery = () => {
               photo.uploaderAvatar &&
               !photo.uploaderAvatar.startsWith("http")
             ) {
-              photo.uploaderAvatar = `http://localhost:5000${photo.uploaderAvatar}`;
+              photo.uploaderAvatar = `${API_URL}
+${photo.uploaderAvatar}`;
             }
             return photo;
           });
@@ -62,7 +65,8 @@ const Gallery = () => {
       formData.append("uploader", user._id || user.id);
       formData.append("uploaderName", user.name || "Unknown");
       try {
-        const res = await fetch("http://localhost:5000/api/gallery", {
+        const res = await fetch(`${API_URL}
+/api/gallery`, {
           method: "POST",
           body: formData,
         });
@@ -139,11 +143,13 @@ const Gallery = () => {
                 className="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer "
               >
                 <img
-                  src={`http://localhost:5000${photo.imageUrl}`}
+                  src={`${API_URL}
+${photo.imageUrl}`}
                   alt={photo.description || "Alumni Photo"}
                   className="w-full h-56 object-cover rounded-t-md"
                   onClick={() =>
-                    setSelectedImage(`http://localhost:5000${photo.imageUrl}`)
+                    setSelectedImage(`${API_URL}
+${photo.imageUrl}`)
                   }
                   onError={(e) => (e.target.src = "/images/university.jpg")}
                 />

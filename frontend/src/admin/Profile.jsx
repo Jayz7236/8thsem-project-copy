@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
   const [admin, setAdmin] = useState({ name: "", email: "", avatar: "" });
@@ -20,7 +21,8 @@ const Profile = () => {
       }
 
       const res = await axios.get(
-        `http://localhost:5000/api/users/admin/${adminId}`,
+        `${API_URL}
+/api/users/admin/${adminId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,7 +60,8 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/users/admin/${adminId}/avatar`,
+        `${API_URL}
+/api/users/admin/${adminId}/avatar`,
         formData,
         {
           headers: {
@@ -93,7 +96,8 @@ const Profile = () => {
       if (password) formData.append("password", password);
 
       const res = await axios.put(
-        `http://localhost:5000/api/users/admin/${adminId}`,
+        `${API_URL}
+/api/users/admin/${adminId}`,
         formData,
         {
           headers: {
@@ -131,7 +135,8 @@ const Profile = () => {
                 <img
                   src={
                     admin.avatar
-                      ? `http://localhost:5000${admin.avatar}`
+                      ? `${API_URL}
+${admin.avatar}`
                       : "default-avatar.png"
                   }
                   alt="Profile"

@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { motion } from "framer-motion"; // Import motion
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ const Home = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/events");
+        const res = await axios.get(`${API_URL}
+/api/events`);
         const today = new Date();
 
         const filtered = res.data.filter(
@@ -172,7 +174,8 @@ const Home = () => {
                   <img
                     src={
                       event.image
-                        ? `http://localhost:5000${event.image}`
+                        ? `${API_URL}
+${event.image}`
                         : "/images/university.jpg"
                     }
                     alt={event.name}

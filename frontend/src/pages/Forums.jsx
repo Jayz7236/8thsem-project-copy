@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { motion } from "framer-motion";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Forums = () => {
   const [search, setSearch] = useState("");
@@ -21,7 +22,8 @@ const Forums = () => {
   useEffect(() => {
     const fetchForums = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/forums");
+        const response = await axios.get(`${API_URL}
+/api/forums`);
         const formatted = response.data.map((forum) => ({
           id: forum._id,
           topic: forum.title,
@@ -29,7 +31,8 @@ const Forums = () => {
           author: forum.created_by || "Unknown",
           avatar: forum.creator_avatar?.startsWith("http")
             ? forum.creator_avatar
-            : `http://localhost:5000${forum.creator_avatar}`,
+            : `${API_URL}
+${forum.creator_avatar}`,
         }));
         console.log(formatted); // Add this to verify the avatar URLs
         setForums(formatted);
@@ -47,7 +50,8 @@ const Forums = () => {
     formData.append("avatar", file);
 
     const response = await axios.post(
-      "http://localhost:5000/api/upload",
+        `${API_URL}
+/api/upload`,
       formData
     );
     const imageUrl = response.data.url;
@@ -62,12 +66,14 @@ const Forums = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const author = user.name;
     const avatar = user.avatar
-      ? `http://localhost:5000${user.avatar}`
+      ? `${API_URL}
+${user.avatar}`
       : "/default-avatar.png";
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/manageforum",
+        `${API_URL}
+/api/manageforum`,
         {
           title: newTopic.topic,
           description: newTopic.description,

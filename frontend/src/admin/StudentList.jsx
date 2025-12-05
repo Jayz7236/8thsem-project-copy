@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
-// const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+// const API_URL = import.meta.env.VITE_API_URL || "${API_URL}
+// /api";
 
 const StudentList = () => {
   const navigate = useNavigate();
@@ -13,7 +15,8 @@ const StudentList = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/students/");
+        const response = await fetch(`${API_URL}
+/api/students/`);
         if (!response.ok) throw new Error("Failed to fetch students");
         const data = await response.json();
         setStudents(data);

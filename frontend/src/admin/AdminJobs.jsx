@@ -4,9 +4,12 @@ import Sidebar from "./Sidebar";
 import EditJobForm from "../components/EditJobForm";
 import JobForm from "../components/JobForm";
 import { Plus } from "lucide-react";
+const API_URL = import.meta.env.VITE_API_URL;
+
 // Fetch jobs from the API
 const fetchJobs = async () => {
-  const response = await fetch("http://localhost:5000/api/job");
+  const response = await fetch( `${API_URL}
+/api/job`);
   return response.json();
 };
 
@@ -98,8 +101,10 @@ const AdminJobs = () => {
 
     try {
       const url = isEditJob
-        ? `http://localhost:5000/api/jobs/${formData._id}`
-        : "http://localhost:5000/api/job";
+        ? `${API_URL}
+/api/jobs/${formData._id}`
+        : `${API_URL}
+/api/job`;
       const method = isEditJob ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -148,7 +153,8 @@ const AdminJobs = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/job/${jobId}`, {
+      const response = await fetch(`${API_URL}
+/api/job/${jobId}`, {
         method: "DELETE",
       });
 

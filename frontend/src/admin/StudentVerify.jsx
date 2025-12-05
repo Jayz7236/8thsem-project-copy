@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const StudentVerify = () => {
   const { id } = useParams();
@@ -13,7 +14,8 @@ const StudentVerify = () => {
     // Fetch student data
     const fetchStudent = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${id}`);
+        const response = await fetch(`${API_URL}
+/api/users/${id}`);
         if (!response.ok) {
           throw new Error("Student not found");
         }
@@ -21,7 +23,8 @@ const StudentVerify = () => {
 
         // Ensure the avatar path is correct (prepend base URL if it's a relative path)
         if (data.avatar && !data.avatar.startsWith("http")) {
-          data.avatar = `http://localhost:5000${data.avatar}`; // Prepend the base URL
+          data.avatar = `${API_URL}
+${data.avatar}`; // Prepend the base URL
         }
 
         setStudent(data);
@@ -38,7 +41,8 @@ const StudentVerify = () => {
   // Approve Student
   const approveStudent = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/students/${id}/approve`, {
+      const response = await fetch(`${API_URL}
+/api/students/${id}/approve`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
       });
@@ -60,7 +64,8 @@ const StudentVerify = () => {
     if (!window.confirm("Are you sure you want to delete this student?")) return;
   
     try {
-      const response = await fetch(`http://localhost:5000/api/students/${id}`, {
+      const response = await fetch(`${API_URL}
+/api/students/${id}`, {
         method: "DELETE",
       });
   

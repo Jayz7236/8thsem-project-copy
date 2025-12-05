@@ -4,6 +4,7 @@ import { Briefcase, MapPin, GraduationCap } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Alumni = () => {
   const [alumni, setAlumni] = useState([]);
@@ -17,13 +18,15 @@ const Alumni = () => {
   useEffect(() => {
     const fetchAlumni = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/alumni`);
+        const response = await fetch(`${API_URL}
+/api/alumni`);
         if (!response.ok) throw new Error("Failed to fetch alumni data.");
         const data = await response.json();
 
         data.forEach((alumnus) => {
           if (alumnus.avatar && !alumnus.avatar.startsWith("http")) {
-            alumnus.avatar = `http://localhost:5000${alumnus.avatar}`;
+            alumnus.avatar = `${API_URL}
+${alumnus.avatar}`;
           }
         });
         setAlumni(data);

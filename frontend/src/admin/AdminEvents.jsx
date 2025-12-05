@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { Trash2, Users, Calendar, MapPin, Plus } from "lucide-react"; 
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -27,7 +29,8 @@ const AdminEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/events");
+      const res = await fetch(`${API_URL}
+/api/events`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setEvents(data);
@@ -67,7 +70,8 @@ const AdminEvents = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/events/add-event",
+        `${API_URL}
+/api/events/add-event`,
         {
           method: "POST",
           body: formData,
@@ -97,7 +101,8 @@ const AdminEvents = () => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+      const res = await fetch(`${API_URL}
+/api/events/${eventId}`, {
         method: "DELETE",
       });
 
@@ -115,7 +120,8 @@ const AdminEvents = () => {
   const fetchAttendees = async (eventId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/events/${eventId}/attendees`,
+        `${API_URL}
+/api/events/${eventId}/attendees`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -241,7 +247,8 @@ const AdminEvents = () => {
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
                   backgroundImage: event.image
-                    ? `url(http://localhost:5000${event.image})`
+                    ? `url(${API_URL}
+${event.image})`
                     : "url('/images/university.jpg')",
                 }}
               ></div>

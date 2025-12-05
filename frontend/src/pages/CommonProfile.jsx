@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+const API_URL = import.meta.env.VITE_API_URL;
+
 import {
   Mail,
   Phone,
@@ -22,13 +24,15 @@ const CommonProfile = () => {
   useEffect(() => {
     const fetchAlumnus = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${id}`);
+        const response = await fetch(`${API_URL}
+/api/users/${id}`);
         if (!response.ok) throw new Error("Alumnus not found");
         const data = await response.json();
 
        
         const avatarUrl = data.avatar && !data.avatar.startsWith("http")
-          ? `http://localhost:5000${data.avatar}`
+          ? `${API_URL}
+${data.avatar}`
           : data.avatar;
 
         setAlumnus({ ...data, avatar: avatarUrl }); // Set alumnus with updated avatar

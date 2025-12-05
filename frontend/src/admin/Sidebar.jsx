@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const [admin, setAdmin] = useState({
@@ -21,7 +23,8 @@ const Sidebar = () => {
         }
 
         const res = await axios.get(
-          `http://localhost:5000/api/users/admin/${adminId}`,
+          `${API_URL}
+/api/users/admin/${adminId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -32,8 +35,10 @@ const Sidebar = () => {
           name: res.data.name || "Admin Name",
           email: res.data.email || "admin@example.com",
           avatar: res.data.avatar
-            ? `http://localhost:5000${res.data.avatar}`
-            : `http://localhost:5000/uploads/1742742024090-112.png`,
+            ? `${API_URL}
+${res.data.avatar}`
+            : `${API_URL}
+/uploads/1742742024090-112.png`,
         });
 
         // ✅ Store in LocalStorage (for sidebar persistence)

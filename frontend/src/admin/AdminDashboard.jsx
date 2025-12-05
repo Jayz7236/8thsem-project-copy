@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../admin/Sidebar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
   const [counts, setCounts] = useState({
@@ -15,7 +16,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/alumni/counts");
+        const response = await fetch(`${API_URL}
+/api/alumni/counts`);
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
