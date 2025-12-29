@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // for development
-  "https://8thsem-project-copy-123.vercel.app", // replace with your actual Vercel domain
+  "https://8thsem-project-copy.vercel.app", // replace with your actual Vercel domain
 ];
 
 
